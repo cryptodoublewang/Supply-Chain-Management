@@ -2,14 +2,14 @@ const Shipment = require("../models/Shipment");
 
 exports.createShipment = async (req, res) => {
   try {
-    const { medicineId, sender, receiver, trackingId } = req.body;
+    const { materialId, sender, receiver, trackingId } = req.body;
 
-    if (!medicineId || !sender || !receiver || !trackingId) {
+    if (!materialId || !sender || !receiver || !trackingId) {
       return res.status(400).json({ error: "All fields are required" });
     }
 
     const shipment = new Shipment({
-      medicineId,
+      materialId,
       sender,
       receiver,
       trackingId,

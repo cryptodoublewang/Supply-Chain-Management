@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const MedicineSchema = new mongoose.Schema({
+const MaterialSchema = new mongoose.Schema({
     blockchainId: { type: Number, required: true, unique: true },
     name: { type: String, required: true },
     description: { type: String, required: true },
@@ -11,4 +11,4 @@ const MedicineSchema = new mongoose.Schema({
     stage: { type: String, enum: ["Ordered", "RawMaterialSupplied", "Manufactured", "Distributed", "Retail", "Sold"], required: true }
 });
 
-module.exports = mongoose.model("Medicine", MedicineSchema);
+module.exports = mongoose.model("Material", MaterialSchema);

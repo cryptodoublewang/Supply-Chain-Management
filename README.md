@@ -1,16 +1,16 @@
 # Supply-Chain-Management-using-Blockchain-Technology
 
-A full-stack decentralized supply chain management system using Solidity, Node.js, MongoDB, and React. It enables seamless tracking of medicines through various stages from manufacturing to retail with participant roles like Supplier, Manufacturer, Distributor, and Retailer.
+A full-stack decentralized supply chain management system using Solidity, Node.js, MongoDB, and React. It enables seamless tracking of materials through various stages from manufacturing to retail with participant roles like Supplier, Manufacturer, Distributor, and Retailer.
 
 ## Smart Contract Features
 Written in Solidity, the smart contract allows:
 
-1. Adding Medicines
+1. Adding Materials
 2. Registering Participants
-3. Assigning participants to medicines
+3. Assigning participants to materials
 4. Tracking stages: Ordered → Raw Material Supplied → Manufactured → Distributed → Retail → Sold
-5. Getting current medicine stage
-6. Shipment creation and medicine transfer logging
+5. Getting current material stage
+6. Shipment creation and material transfer logging
 
 ## Tech Stack
 
@@ -67,7 +67,7 @@ npm run dev
 ## Key Features
 
 1. Role-based Participant Registration
-2. Medicine Lifecycle Management
+2. Material Lifecycle Management
 3. Real-time Blockchain Tracking
 4. Shipment Management & Status
 5. Transaction History Tracking

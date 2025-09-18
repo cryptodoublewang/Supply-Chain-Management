@@ -3,7 +3,7 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 const connectDB = require("./config/db");
 
-const medicineRoutes = require("./routes/medicineRoutes");
+const materialRoutes = require("./routes/materialRoutes");
 const participantRoutes = require("./routes/participantRoutes");
 const transactionRoutes = require("./routes/transactionRoutes");
 const shipmentRoutes = require("./routes/shipmentRoutes");
@@ -16,7 +16,7 @@ connectDB();
 app.use(cors({ origin: "*" }));
 app.use(express.json());
 
-app.use("/api/medicines", medicineRoutes);
+app.use("/api/materials", materialRoutes);
 app.use("/api/participants", participantRoutes);
 app.use("/api/transactions", transactionRoutes);
 app.use("/api/shipments", shipmentRoutes);

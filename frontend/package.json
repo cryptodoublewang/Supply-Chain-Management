@@ -11,12 +11,14 @@
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.0.6",
-    "axios": "^1.7.9",
+    "axios": "^1.10.0",
     "lucide-react": "^0.482.0",
+    "qrmark-logo": "^1.0.7",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router-dom": "^7.1.5",
     "react-toastify": "^11.0.3",
+    "simple-icon-maker": "^1.1.2",
     "web3": "^4.16.0"
   },
   "devDependencies": {

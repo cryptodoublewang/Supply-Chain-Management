@@ -8,7 +8,7 @@ const Transactions = () => {
   const [submitting, setSubmitting] = useState(false);
   const [notification, setNotification] = useState({ show: false, type: "", message: "" });
   const [formData, setFormData] = useState({
-    medicineId: "",
+    materialId: "",
     participant: "",
     action: "",
     timestamp: Date.now(),
@@ -44,7 +44,7 @@ const Transactions = () => {
       showNotification("success", "Transaction recorded successfully!");
       fetchTransactions();
       setFormData({
-        medicineId: "",
+        materialId: "",
         participant: "",
         action: "",
         timestamp: Date.now(),
@@ -110,13 +110,13 @@ const Transactions = () => {
               <div className="p-6">
                 <form onSubmit={handleAddTransaction} className="space-y-5">
                   <div className="space-y-1">
-                    <label className="block text-sm font-medium text-gray-300">Medicine ID</label>
+                    <label className="block text-sm font-medium text-gray-300">Material ID</label>
                     <input
                       type="text"
-                      placeholder="Enter medicine ID"
+                      placeholder="Enter material ID"
                       className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
-                      value={formData.medicineId}
-                      onChange={(e) => setFormData({ ...formData, medicineId: e.target.value })}
+                      value={formData.materialId}
+                      onChange={(e) => setFormData({ ...formData, materialId: e.target.value })}
                       required
                     />
                   </div>
@@ -209,7 +209,7 @@ const Transactions = () => {
                         <div className="mb-3 sm:mb-0">
                           <div className="flex items-center">
                             <Package className="h-5 w-5 text-blue-500 mr-2" />
-                            <h4 className="font-medium text-gray-900">Medicine ID: {txn.medicineId}</h4>
+                            <h4 className="font-medium text-gray-900">Material ID: {txn.materialId}</h4>
                             <div className="ml-3">{getActionBadge(txn.action)}</div>
                           </div>
                         </div>

@@ -2,11 +2,11 @@ import axios from "axios";
 
 const API_URL = import.meta.env.VITE_API_BASE_URL;
 
-// Medicines
-export const addMedicine = (medicineData) => axios.post(`${API_URL}/medicines/add`, medicineData);
-export const getMedicines = () => axios.get(`${API_URL}/medicines/`);
-export const getMedicineHistory = (medicineId) => axios.get(`${API_URL}/medicines/${medicineId}/history`);
-export const getMedicineStage = (medicineId) => axios.get(`${API_URL}/medicines/${medicineId}/stage`);
+// Materials
+export const addMaterial = (materialData) => axios.post(`${API_URL}/materials/add`, materialData);
+export const getMaterials = () => axios.get(`${API_URL}/materials/`);
+export const getMaterialHistory = (materialId) => axios.get(`${API_URL}/materials/${materialId}/history`);
+export const getMaterialStage = (materialId) => axios.get(`${API_URL}/materials/${materialId}/stage`);
 
 // Participants
 export const addParticipant = (participantData) => axios.post(`${API_URL}/participants/add`, participantData);

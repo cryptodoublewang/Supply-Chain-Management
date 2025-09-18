@@ -37,8 +37,8 @@ contract SupplyChain {
         Delivered
     }
 
-    // Structure to store details of a medicine
-    struct Medicine {
+    // Structure to store details of a material
+    struct Material {
         uint256 id;
         string name;
         string description;
@@ -58,7 +58,7 @@ contract SupplyChain {
 
     // Structure for shipment tracking
     struct Shipment {
-        uint256 medicineId;
+        uint256 materialId;
         address sender;
         address receiver;
         string trackingId;
@@ -67,14 +67,14 @@ contract SupplyChain {
 
     // Structure for transaction tracking
     struct Transaction {
-        uint256 medicineId;
+        uint256 materialId;
         address participant;
         string action;
         uint256 timestamp;
     }
 
     // Mappings to store data
-    mapping(uint256 => Medicine) public medicines;
+    mapping(uint256 => Material) public materials;
     mapping(address => Participant) public suppliers;
     mapping(address => Participant) public manufacturers;
     mapping(address => Participant) public distributors;
@@ -83,21 +83,21 @@ contract SupplyChain {
     Transaction[] public transactions;
 
     // Counters to assign unique IDs
-    uint256 public medicineCounter;
+    uint256 public materialCounter;
 
     // Events
-    event MedicineAdded(uint256 indexed medicineId, string name);
+    event MaterialAdded(uint256 indexed materialId, string name);
     event ParticipantAdded(address indexed participant, string role);
-    event MedicineStageUpdated(uint256 indexed medicineId, Stage newStage);
-    event ShipmentCreated(uint256 indexed medicineId, string trackingId);
+    event MaterialStageUpdated(uint256 indexed materialId, Stage newStage);
+    event ShipmentCreated(uint256 indexed materialId, string trackingId);
     event ShipmentUpdated(string trackingId, ShipmentStatus status);
-    event TransactionRecorded(uint256 indexed medicineId, string action, address participant);
+    event TransactionRecorded(uint256 indexed materialId, string action, address participant);
 
-    // Add new medicine (only owner)
-    function addMedicine(string memory _name, string memory _description) public onlyOwner {
-        medicineCounter++;
-        medicines[medicineCounter] = Medicine(
-            medicineCounter,
+    // Add new material (only owner)
+    function addMaterial(string memory _name, string memory _description) public onlyOwner {
+        materialCounter++;
+        materials[materialCounter] = Material(
+            materialCounter,
             _name,
             _description,
             address(0),  // No supplier assigned yet
@@ -107,7 +107,7 @@ contract SupplyChain {
             Stage.Ordered
         );
 
-        emit MedicineAdded(medicineCounter, _name);
+        emit MaterialAdded(materialCounter, _name);
     }
 
     // Register supply chain participants (only owner)
@@ -132,79 +132,79 @@ contract SupplyChain {
     }
 
     // Supply raw materials (Only Supplier)
-    function supplyRawMaterials(uint256 _medicineID) public {
+    function supplyRawMaterials(uint256 _materialID) public {
         require(suppliers[msg.sender].addr != address(0), "Not a registered supplier");
-        require(medicines[_medicineID].stage == Stage.Ordered, "Invalid stage");
-        medicines[_medicineID].supplier = msg.sender;
-        medicines[_medicineID].stage = Stage.RawMaterialSupplied;
+        require(materials[_materialID].stage == Stage.Ordered, "Invalid stage");
+        materials[_materialID].supplier = msg.sender;
+        materials[_materialID].stage = Stage.RawMaterialSupplied;
 
-        emit MedicineStageUpdated(_medicineID, Stage.RawMaterialSupplied);
-        recordTransaction(_medicineID, "Raw Material Supplied", msg.sender);
+        emit MaterialStageUpdated(_materialID, Stage.RawMaterialSupplied);
+        recordTransaction(_materialID, "Raw Material Supplied", msg.sender);
     }
 
-    // Manufacture medicine (Only Manufacturer)
-    function manufactureMedicine(uint256 _medicineID) public {
+    // Manufacture material (Only Manufacturer)
+    function manufactureMaterial(uint256 _materialID) public {
         require(manufacturers[msg.sender].addr != address(0), "Not a registered manufacturer");
-        require(medicines[_medicineID].stage == Stage.RawMaterialSupplied, "Invalid stage");
-        medicines[_medicineID].manufacturer = msg.sender;
-        medicines[_medicineID].stage = Stage.Manufactured;
+        require(materials[_materialID].stage == Stage.RawMaterialSupplied, "Invalid stage");
+        materials[_materialID].manufacturer = msg.sender;
+        materials[_materialID].stage = Stage.Manufactured;
 
-        emit MedicineStageUpdated(_medicineID, Stage.Manufactured);
-        recordTransaction(_medicineID, "Manufactured", msg.sender);
+        emit MaterialStageUpdated(_materialID, Stage.Manufactured);
+        recordTransaction(_materialID, "Manufactured", msg.sender);
     }
 
-    // Distribute medicine (Only Distributor)
-    function distributeMedicine(uint256 _medicineID) public {
+    // Distribute material (Only Distributor)
+    function distributeMaterial(uint256 _materialID) public {
         require(distributors[msg.sender].addr != address(0), "Not a registered distributor");
-        require(medicines[_medicineID].stage == Stage.Manufactured, "Invalid stage");
-        medicines[_medicineID].distributor = msg.sender;
-        medicines[_medicineID].stage = Stage.Distributed;
+        require(materials[_materialID].stage == Stage.Manufactured, "Invalid stage");
+        materials[_materialID].distributor = msg.sender;
+        materials[_materialID].stage = Stage.Distributed;
 
-        emit MedicineStageUpdated(_medicineID, Stage.Distributed);
-        recordTransaction(_medicineID, "Distributed", msg.sender);
+        emit MaterialStageUpdated(_materialID, Stage.Distributed);
+        recordTransaction(_materialID, "Distributed", msg.sender);
     }
 
-    // Retail medicine (Only Retailer)
-    function retailMedicine(uint256 _medicineID) public {
+    // Retail material (Only Retailer)
+    function retailMaterial(uint256 _materialID) public {
         require(retailers[msg.sender].addr != address(0), "Not a registered retailer");
-        require(medicines[_medicineID].stage == Stage.Distributed, "Invalid stage");
-        medicines[_medicineID].retailer = msg.sender;
-        medicines[_medicineID].stage = Stage.Retail;
+        require(materials[_materialID].stage == Stage.Distributed, "Invalid stage");
+        materials[_materialID].retailer = msg.sender;
+        materials[_materialID].stage = Stage.Retail;
 
-        emit MedicineStageUpdated(_medicineID, Stage.Retail);
-        recordTransaction(_medicineID, "Available for Sale", msg.sender);
+        emit MaterialStageUpdated(_materialID, Stage.Retail);
+        recordTransaction(_materialID, "Available for Sale", msg.sender);
     }
 
-    // Mark medicine as sold (Only assigned retailer)
-    function sellMedicine(uint256 _medicineID) public {
-        require(medicines[_medicineID].retailer == msg.sender, "Not the assigned retailer");
-        require(medicines[_medicineID].stage == Stage.Retail, "Invalid stage");
-        medicines[_medicineID].stage = Stage.Sold;
+    // Mark material as sold (Only assigned retailer)
+    function sellMaterial(uint256 _materialID) public {
+        require(materials[_materialID].retailer == msg.sender, "Not the assigned retailer");
+        require(materials[_materialID].stage == Stage.Retail, "Invalid stage");
+        materials[_materialID].stage = Stage.Sold;
 
-        emit MedicineStageUpdated(_medicineID, Stage.Sold);
-        recordTransaction(_medicineID, "Sold", msg.sender);
+        emit MaterialStageUpdated(_materialID, Stage.Sold);
+        recordTransaction(_materialID, "Sold", msg.sender);
     }
 
-    // Get current stage of medicine
-    function getMedicineStage(uint256 _medicineID) public view returns (string memory) {
-        require(_medicineID > 0 && _medicineID <= medicineCounter, "Invalid medicine ID");
+    // Get current stage of material
+    function getMaterialStage(uint256 _materialID) public view returns (string memory) {
+        require(_materialID > 0 && _materialID <= materialCounter, "Invalid material ID");
 
-        if (medicines[_medicineID].stage == Stage.Ordered) return "Ordered";
-        if (medicines[_medicineID].stage == Stage.RawMaterialSupplied) return "Raw Material Supplied";
-        if (medicines[_medicineID].stage == Stage.Manufactured) return "Manufactured";
-        if (medicines[_medicineID].stage == Stage.Distributed) return "Distributed";
-        if (medicines[_medicineID].stage == Stage.Retail) return "Retail";
-        if (medicines[_medicineID].stage == Stage.Sold) return "Sold";
+        if (materials[_materialID].stage == Stage.Ordered) return "Ordered";
+        if (materials[_materialID].stage == Stage.RawMaterialSupplied) return "Raw Material Supplied";
+        if (materials[_materialID].stage == Stage.Manufactured) return "Manufactured";
+        if (materials[_materialID].stage == Stage.Distributed) return "Distributed";
+        if (materials[_materialID].stage == Stage.Retail) return "Retail";
+        if (materials[_materialID].stage == Stage.Sold) return "Sold";
 
         return "Unknown";
     }
 
     // Create a shipment
-    function createShipment(uint256 _medicineID, address _receiver, string memory _trackingId) public {
-        require(medicines[_medicineID].distributor == msg.sender, "Only distributor can create shipment");
-        shipments[_trackingId] = Shipment(_medicineID, msg.sender, _receiver, _trackingId, ShipmentStatus.Pending);
+    function createShipment(uint256 _materialID, address _receiver, string memory _trackingId) public {
+        require(materials[_materialID].distributor == msg.sender, "Only distributor can create shipment");
+        shipments[_trackingId] = Shipment(_materialID, msg.sender, _receiver, _trackingId, ShipmentStatus.Pending);
 
-        emit ShipmentCreated(_medicineID, _trackingId);
+        emit ShipmentCreated(_materialID, _trackingId);
     }
 
     // Update shipment status
@@ -221,8 +221,8 @@ contract SupplyChain {
     }
 
     // Record transaction
-    function recordTransaction(uint256 _medicineID, string memory _action, address _participant) internal {
-        transactions.push(Transaction(_medicineID, _participant, _action, block.timestamp));
-        emit TransactionRecorded(_medicineID, _action, _participant);
+    function recordTransaction(uint256 _materialID, string memory _action, address _participant) internal {
+        transactions.push(Transaction(_materialID, _participant, _action, block.timestamp));
+        emit TransactionRecorded(_materialID, _action, _participant);
     }
 }

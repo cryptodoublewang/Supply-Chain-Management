@@ -12,7 +12,7 @@ const Shipments = () => {
   const [updating, setUpdating] = useState(false);
   const [notification, setNotification] = useState({ show: false, type: "", message: "" });
   const [formData, setFormData] = useState({
-    medicineId: "",
+    materialId: "",
     sender: "",
     receiver: "",
     trackingId: "",
@@ -53,7 +53,7 @@ const Shipments = () => {
       showNotification("success", "Shipment created successfully!");
       fetchShipments();
       setFormData({
-        medicineId: "",
+        materialId: "",
         sender: "",
         receiver: "",
         trackingId: "",
@@ -138,13 +138,13 @@ const Shipments = () => {
               <div className="p-6">
                 <form onSubmit={handleAddShipment} className="space-y-4">
                   <div className="space-y-1">
-                    <label className="block text-sm font-medium text-gray-300">Medicine ID</label>
+                    <label className="block text-sm font-medium text-gray-300">Material ID</label>
                     <input
                       type="text"
-                      placeholder="Enter medicine ID"
+                      placeholder="Enter material ID"
                       className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all"
-                      value={formData.medicineId}
-                      onChange={(e) => setFormData({ ...formData, medicineId: e.target.value })}
+                      value={formData.materialId}
+                      onChange={(e) => setFormData({ ...formData, materialId: e.target.value })}
                       required
                     />
                   </div>
@@ -308,7 +308,7 @@ const Shipments = () => {
                       <div className="flex flex-col md:flex-row md:items-center justify-between mb-4">
                         <div className="flex items-center mb-3 md:mb-0">
                           <Package className="h-5 w-5 text-teal-500 mr-2" />
-                          <h4 className="font-medium text-gray-900">Medicine ID: {shipment.medicineId}</h4>
+                          <h4 className="font-medium text-gray-900">Material ID: {shipment.materialId}</h4>
                           <div className="ml-3">{getStatusBadge(shipment.status)}</div>
                         </div>
                         <div className="flex items-center text-sm bg-gray-100 px-3 py-1 rounded">

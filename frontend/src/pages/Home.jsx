@@ -17,35 +17,35 @@ const Home = () => {
             </h1>
             <div className="h-1 w-24 bg-blue-500 mb-8"></div>
             <p className="text-xl text-gray-300 max-w-2xl">
-              Track medicines from manufacturing to distribution using secure blockchain technology for enhanced transparency and trust.
+              Track materials from manufacturing to distribution using secure blockchain technology for enhanced transparency and trust.
             </p>
           </div>
           
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            <Link to="/add-medicine" className="group bg-gradient-to-r from-blue-600 to-blue-500 p-6 rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300">
+            <Link to="/add-material" className="group bg-gradient-to-r from-blue-600 to-blue-500 p-6 rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300">
               <div className="flex flex-col items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 text-white mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
-                <span className="text-white font-medium text-lg">Add Medicine</span>
+                <span className="text-white font-medium text-lg">Add Material</span>
               </div>
             </Link>
 
-            <Link to="/medicines" className="group bg-gradient-to-r from-green-600 to-green-500 p-6 rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300">
+            <Link to="/materials" className="group bg-gradient-to-r from-green-600 to-green-500 p-6 rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300">
               <div className="flex flex-col items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 text-white mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                 </svg>
-                <span className="text-white font-medium text-lg">Medicine List</span>
+                <span className="text-white font-medium text-lg">Material List</span>
               </div>
             </Link>
 
-            <Link to="/medicine-details" className="group bg-gradient-to-r from-teal-600 to-teal-500 p-6 rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300">
+            <Link to="/material-details" className="group bg-gradient-to-r from-teal-600 to-teal-500 p-6 rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300">
               <div className="flex flex-col items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 text-white mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 21h7a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v11m0 5l4.879-4.879m0 0a3 3 0 104.243-4.242 3 3 0 00-4.243 4.242z" />
                 </svg>
-                <span className="text-white font-medium text-lg">Medicine Details</span>
+                <span className="text-white font-medium text-lg">Material Details</span>
               </div>
             </Link>
 

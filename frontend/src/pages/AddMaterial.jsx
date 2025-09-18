@@ -1,9 +1,9 @@
 import { useState, useContext } from "react";
 import { Web3Context } from "../context/Web3Provider";
-import { addMedicine } from "../services/api";
+import { addMaterial } from "../services/api";
 import { CheckCircle, AlertTriangle, Pill, Info, Clipboard } from "lucide-react";
 
-const AddMedicine = () => {
+const AddMaterial = () => {
   const account = useContext(Web3Context);
   const [loading, setLoading] = useState(false);
   const [notification, setNotification] = useState({ show: false, type: "", message: "" });
@@ -14,20 +14,20 @@ const AddMedicine = () => {
     stage: "",
   });
 
-  const handleAddMedicine = async (e) => {
+  const handleAddMaterial = async (e) => {
     e.preventDefault();
     setLoading(true);
     try {
-      await addMedicine(formData);
+      await addMaterial(formData);
       setFormData({
         name: "",
         description: "",
         stage: "",
       });
-      setNotification({ show: true, type: "success", message: "Medicine added successfully!" });
+      setNotification({ show: true, type: "success", message: "Material added successfully!" });
       setTimeout(() => setNotification({ show: false, type: "", message: "" }), 5000);
     } catch (error) {
-      setNotification({ show: true, type: "error", message: "Error adding medicine" });
+      setNotification({ show: true, type: "error", message: "Error adding material" });
       setTimeout(() => setNotification({ show: false, type: "", message: "" }), 5000);
       console.error(error);
     } finally {
@@ -43,7 +43,7 @@ const AddMedicine = () => {
             <div className="bg-white bg-opacity-20 p-3 rounded-lg mr-4">
               <Pill className="h-8 w-8 text-black" />
             </div>
-            <h2 className="text-3xl font-bold text-white">Add Medicine</h2>
+            <h2 className="text-3xl font-bold text-white">Add Material</h2>
           </div>
 
           <div className="p-6 sm:p-8">
@@ -59,12 +59,12 @@ const AddMedicine = () => {
               </div>
             )}
             
-            <form onSubmit={handleAddMedicine} className="space-y-6">
+            <form onSubmit={handleAddMaterial} className="space-y-6">
               <div className="space-y-1">
-                <label className="block text-sm font-medium text-gray-400">Medicine Name</label>
+                <label className="block text-sm font-medium text-gray-400">Material Name</label>
                 <input 
                   type="text" 
-                  placeholder="Enter medicine name" 
+                  placeholder="Enter material name" 
                   className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
                   value={formData.name} 
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })} 
@@ -75,7 +75,7 @@ const AddMedicine = () => {
               <div className="space-y-1">
                 <label className="block text-sm font-medium text-gray-400">Description</label>
                 <textarea 
-                  placeholder="Enter medicine description" 
+                  placeholder="Enter material description" 
                   className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
                   value={formData.description} 
                   onChange={(e) => setFormData({ ...formData, description: e.target.value })} 
@@ -104,7 +104,7 @@ const AddMedicine = () => {
 
               <div className="bg-gray-50 p-4 rounded-lg flex items-center text-sm text-gray-600">
                 <Info className="h-5 w-5 mr-2 text-blue-500" />
-                <span>Adding medicine will create a new record on the blockchain with your wallet address.</span>
+                <span>Adding material will create a new record on the blockchain with your wallet address.</span>
               </div>
 
               <button 
@@ -137,4 +137,4 @@ const AddMedicine = () => {
   );
 };
 
-export default AddMedicine;
+export default AddMaterial;

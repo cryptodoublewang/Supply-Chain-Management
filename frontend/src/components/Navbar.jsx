@@ -32,9 +32,9 @@ const Navbar = () => {
         </button>
 
         <div className="hidden lg:flex items-center space-x-1">
-          <NavLink to="/add-medicine" icon={<Clipboard className="w-4 h-4 mr-2" />} text="Add Medicine" />
-          <NavLink to="/medicines" icon={<List className="w-4 h-4 mr-2" />} text="Medicine List" />
-          <NavLink to="/medicine-details" icon={<FileSearch className="w-4 h-4 mr-2" />} text="Details" />
+          <NavLink to="/add-material" icon={<Clipboard className="w-4 h-4 mr-2" />} text="Add Material" />
+          <NavLink to="/materials" icon={<List className="w-4 h-4 mr-2" />} text="Material List" />
+          <NavLink to="/material-details" icon={<FileSearch className="w-4 h-4 mr-2" />} text="Details" />
           <NavLink to="/participants" icon={<Users className="w-4 h-4 mr-2" />} text="Participants" />
           <NavLink to="/transactions" icon={<BarChart2 className="w-4 h-4 mr-2" />} text="Transactions" />
           <NavLink to="/shipments" icon={<Truck className="w-4 h-4 mr-2" />} text="Shipments" />
@@ -42,9 +42,9 @@ const Navbar = () => {
 
         {isOpen && (
           <div className="absolute top-16 right-4 bg-gray-900 border border-gray-800 shadow-xl rounded-lg py-2 w-56 flex flex-col overflow-hidden z-10">
-            <MobileNavLink to="/add-medicine" icon={<Clipboard className="w-5 h-5" />} text="Add Medicine" />
-            <MobileNavLink to="/medicines" icon={<List className="w-5 h-5" />} text="Medicine List" />
-            <MobileNavLink to="/medicine-details" icon={<FileSearch className="w-5 h-5" />} text="Medicine Details" />
+            <MobileNavLink to="/add-material" icon={<Clipboard className="w-5 h-5" />} text="Add Material" />
+            <MobileNavLink to="/materials" icon={<List className="w-5 h-5" />} text="Material List" />
+            <MobileNavLink to="/material-details" icon={<FileSearch className="w-5 h-5" />} text="Material Details" />
             <MobileNavLink to="/participants" icon={<Users className="w-5 h-5" />} text="Participants" />
             <MobileNavLink to="/transactions" icon={<BarChart2 className="w-5 h-5" />} text="Transactions" />
             <MobileNavLink to="/shipments" icon={<Truck className="w-5 h-5" />} text="Shipments" />

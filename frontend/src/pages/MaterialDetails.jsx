@@ -1,29 +1,29 @@
 import { useState, useEffect } from "react";
-import { getMedicines, getMedicineStage, getMedicineHistory } from "../services/api";
+import { getMaterials, getMaterialStage, getMaterialHistory } from "../services/api";
 import { FileSearch, Clock, Tag, Search, History, ArrowRight, Loader, AlertCircle, CheckCircle } from "lucide-react";
 
-const Medicine = () => {
-  const [medicines, setMedicines] = useState([]);
+const Material = () => {
+  const [materials, setMaterials] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [medicineId, setMedicineId] = useState("");
-  const [medicineHistory, setMedicineHistory] = useState([]);
-  const [medicineStage, setMedicineStage] = useState("");
+  const [materialId, setMaterialId] = useState("");
+  const [materialHistory, setMaterialHistory] = useState([]);
+  const [materialStage, setMaterialStage] = useState("");
   const [notification, setNotification] = useState({ show: false, type: "", message: "" });
   const [historyLoading, setHistoryLoading] = useState(false);
   const [stageLoading, setStageLoading] = useState(false);
 
   useEffect(() => {
-    fetchMedicines();
+    fetchMaterials();
   }, []);
 
-  const fetchMedicines = async () => {
+  const fetchMaterials = async () => {
     try {
       setLoading(true);
-      const response = await getMedicines();
-      setMedicines(response.data);
+      const response = await getMaterials();
+      setMaterials(response.data);
     } catch (error) {
-      showNotification("error", "Error fetching medicines");
-      console.error("Error fetching medicines:", error);
+      showNotification("error", "Error fetching materials");
+      console.error("Error fetching materials:", error);
     } finally {
       setLoading(false);
     }
@@ -35,43 +35,43 @@ const Medicine = () => {
   };
 
   const handleGetHistory = async () => {
-    if (!medicineId) {
-      showNotification("error", "Please enter a Medicine ID");
+    if (!materialId) {
+      showNotification("error", "Please enter a Material ID");
       return;
     }
 
     try {
       setHistoryLoading(true);
-      const response = await getMedicineHistory(medicineId);
+      const response = await getMaterialHistory(materialId);
 
       if (response.data.length === 0) {
-        showNotification("info", "No transaction history found for this medicine");
-        setMedicineHistory([]);
+        showNotification("info", "No transaction history found for this material");
+        setMaterialHistory([]);
         return;
       }
 
-      setMedicineHistory(response.data);
+      setMaterialHistory(response.data);
       showNotification("success", "Transaction history retrieved successfully");
     } catch (error) {
-      showNotification("error", "Error fetching medicine history");
+      showNotification("error", "Error fetching material history");
     } finally {
       setHistoryLoading(false);
     }
   };
 
   const handleGetStage = async () => {
-    if (!medicineId) {
-      showNotification("error", "Please enter a Medicine ID");
+    if (!materialId) {
+      showNotification("error", "Please enter a Material ID");
       return;
     }
 
     try {
       setStageLoading(true);
-      const response = await getMedicineStage(medicineId);
-      setMedicineStage(response.data.stage);
+      const response = await getMaterialStage(materialId);
+      setMaterialStage(response.data.stage);
       showNotification("success", "Current stage retrieved successfully");
     } catch (error) {
-      showNotification("error", "Error fetching medicine stage");
+      showNotification("error", "Error fetching material stage");
     } finally {
       setStageLoading(false);
     }
@@ -134,21 +134,21 @@ const Medicine = () => {
           <div className="bg-gradient-to-r from-teal-600 to-teal-500 p-3 rounded-lg mr-4 shadow-md">
             <FileSearch className="h-8 w-8 text-white" />
           </div>
-          <h2 className="text-3xl font-bold text-white">Medicine Details</h2>
+          <h2 className="text-3xl font-bold text-white">Material Details</h2>
         </div>
 
-        {/* Medicine Lookup Section */}
+        {/* Material Lookup Section */}
         <div className="bg-gray-900 rounded-xl shadow-md overflow-hidden mb-8">
           <div className="p-6">
-            <h3 className="text-xl font-semibold text-gray-300 mb-4">Medicine Lookup</h3>
+            <h3 className="text-xl font-semibold text-gray-300 mb-4">Material Lookup</h3>
             <div className="flex flex-col md:flex-row space-y-3 md:space-y-0 md:space-x-3">
               <div className="flex-grow">
                 <input 
                   type="text" 
-                  placeholder="Enter Medicine ID" 
+                  placeholder="Enter Material ID" 
                   className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all"
-                  value={medicineId} 
-                  onChange={(e) => setMedicineId(e.target.value)} 
+                  value={materialId} 
+                  onChange={(e) => setMaterialId(e.target.value)} 
                 />
               </div>
               <button 
@@ -170,8 +170,8 @@ const Medicine = () => {
             </div>
           </div>
 
-          {/* Display Medicine Stage */}
-          {medicineStage && (
+          {/* Display Material Stage */}
+          {materialStage && (
             <div className="p-6 bg-gray-900">
               <div className="flex items-start">
                 <div className="bg-teal-100 p-3 rounded-full mr-4">
@@ -179,9 +179,9 @@ const Medicine = () => {
                 </div>
                 <div>
                   <h4 className="text-lg font-medium text-gray-300 mb-2">Current Stage</h4>
-                  <p className="text-gray-300 mb-2">Medicine ID: <span className="font-medium text-gray-300">{medicineId}</span></p>
+                  <p className="text-gray-300 mb-2">Material ID: <span className="font-medium text-gray-300">{materialId}</span></p>
                   <div className="mt-2">
-                    {getStageBadge(medicineStage)}
+                    {getStageBadge(materialStage)}
                   </div>
                 </div>
               </div>
@@ -189,8 +189,8 @@ const Medicine = () => {
           )}
         </div>
 
-        {/* Medicine History */}
-        {medicineHistory.length > 0 && (
+        {/* Material History */}
+        {materialHistory.length > 0 && (
           <div className="bg-white rounded-xl shadow-md overflow-hidden mb-8">
             <div className="border-b border-gray-100 p-6">
               <div className="flex items-center">
@@ -200,7 +200,7 @@ const Medicine = () => {
             </div>
             
             <div className="divide-y divide-gray-100">
-              {medicineHistory.map((txn, index) => (
+              {materialHistory.map((txn, index) => (
                 <div key={index} className="p-6 hover:bg-gray-50 transition-all">
                   <div className="flex items-start">
                     <div className="hidden sm:block bg-blue-100 p-2 rounded-full mr-4">
@@ -224,27 +224,27 @@ const Medicine = () => {
           </div>
         )}
 
-        {/* Medicine List */}
+        {/* Material List */}
         <div className="bg-gray-900 rounded-xl shadow-md overflow-hidden">
           <div className="border-b border-gray-100 p-6">
             <div className="flex items-center">
               <Search className="h-5 w-5 mr-3 text-gray-300" />
-              <h3 className="text-xl font-semibold text-gray-300">Medicine List</h3>
+              <h3 className="text-xl font-semibold text-gray-300">Material List</h3>
             </div>
           </div>
           
           {loading ? (
             <div className="flex flex-col items-center justify-center py-12">
               <Loader className="h-10 w-10 text-teal-500 animate-spin mb-4" />
-              <p className="text-gray-600">Loading medicines...</p>
+              <p className="text-gray-600">Loading materials...</p>
             </div>
-          ) : medicines.length === 0 ? (
+          ) : materials.length === 0 ? (
             <div className="p-6 text-center">
-              <p className="text-gray-300">No medicines found in the blockchain.</p>
+              <p className="text-gray-300">No materials found in the blockchain.</p>
             </div>
           ) : (
             <ul className="divide-y divide-gray-100">
-              {medicines.map((med) => (
+              {materials.map((med) => (
                 <li key={med.blockchainId} className="p-6 hover:bg-gray-700 transition-all">
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between">
                     <div className="mb-3 sm:mb-0">
@@ -256,7 +256,7 @@ const Medicine = () => {
                       <button 
                         className="ml-4 text-sm text-teal-400 hover:text-teal-500 font-medium flex items-center"
                         onClick={() => {
-                          setMedicineId(med.blockchainId);
+                          setMaterialId(med.blockchainId);
                           handleGetHistory();
                         }}
                       >
@@ -276,4 +276,4 @@ const Medicine = () => {
   );
 };
 
-export default Medicine;
+export default Material;

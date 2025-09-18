@@ -1,20 +1,20 @@
 const Transaction = require("../models/Transaction");
-const Medicine = require("../models/Medicine");
+const Material = require("../models/Material");
 const { web3js, contract } = require("../config/web3");
 
 // @desc   Record a new transaction
 // exports.addTransaction = async (req, res) => {
 //   try {
-//     const { medicineId, from, to, action } = req.body;
+//     const { materialId, from, to, action } = req.body;
 
-//     if (!medicineId || !from || !to || !action) {
+//     if (!materialId || !from || !to || !action) {
 //       return res.status(400).json({ error: "All fields are required" });
 //     }
 
-//     // Ensure valid medicine exists
-//     const medicine = await Medicine.findOne({ blockchainId: medicineId });
-//     if (!medicine) {
-//       return res.status(404).json({ error: "Medicine not found" });
+//     // Ensure valid material exists
+//     const material = await Material.findOne({ blockchainId: materialId });
+//     if (!material) {
+//       return res.status(404).json({ error: "Material not found" });
 //     }
 
 //     // Get nonce & gas price
@@ -27,7 +27,7 @@ const { web3js, contract } = require("../config/web3");
 //       gas: 2000000,
 //       gasPrice: gasPrice,
 //       nonce: nonce,
-//       data: contract.methods.transferMedicine(medicineId, to).encodeABI(),
+//       data: contract.methods.transferMaterial(materialId, to).encodeABI(),
 //     };
 
 //     // Sign and send transaction
@@ -36,7 +36,7 @@ const { web3js, contract } = require("../config/web3");
 
 //     // Save transaction in MongoDB
 //     const transaction = new Transaction({
-//       medicineId,
+//       materialId,
 //       participant: from,
 //       action,
 //       timestamp: Date.now(),
@@ -64,8 +64,8 @@ exports.getTransactions = async (req, res) => {
 
 exports.recordTransaction = async (req, res) => {
   try {
-      const { medicineId, participant, action, timestamp } = req.body;
-      const transaction = new Transaction({ medicineId, participant, action, timestamp });
+      const { materialId, participant, action, timestamp } = req.body;
+      const transaction = new Transaction({ materialId, participant, action, timestamp });
       await transaction.save();
       res.status(201).json({ message: 'Transaction recorded successfully', transaction });
   } catch (error) {
