@@ -20,7 +20,7 @@ const Navbar = () => {
       <div className="container mx-auto flex justify-between items-center py-4 px-6">
         <Link to="/" className="flex items-center group">
           <span className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-blue-300 bg-clip-text text-transparent">
-            SCM
+            GG
           </span>
         </Link>
 

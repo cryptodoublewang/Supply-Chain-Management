@@ -1,4 +1,4 @@
-# Supply-Chain-Management-using-Blockchain-Technology
+# Blockchain Supply Chain Management
 
 A full-stack decentralized supply chain management system using Solidity, Node.js, MongoDB, and React. It enables seamless tracking of materials through various stages from manufacturing to retail with participant roles like Supplier, Manufacturer, Distributor, and Retailer.
 
@@ -73,24 +73,9 @@ npm run dev
 5. Transaction History Tracking
 6. Responsive, Modern UI with Tailwind CSS
 
-## Website
-
-<img src="./assets/home.png" alt="home" />
-<img src="./assets/details.png" alt="details" />
-<img src="./assets/participant.png" alt="participant" />
-
 ## Future Improvements
 
 1. User Authentication
 2. QR Code Tracking
 3. IPFS Integration for reports
 4. Email Notifications
-
-## Contributors
-
-1. [Harshvardhan Sharma](https://github.com/Harshvardhan2164)
-2. [Ankit Agrawal](https://github.com/ItsmeAnkit525)
-3. [Vansh Jangir](https://github.com/vanshjangir)
-
-## License
-This project is licensed under the MIT License.
